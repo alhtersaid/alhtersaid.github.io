@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,17 +50,6 @@
       z-index: 1;
     }
 
-    .card::before,
-    .card::after {
-      content: "♡";
-      position: absolute;
-      font-size: 20px;
-      color: #ff76c6;
-      top: 10px;
-    }
-    .card::before { left: 18px; }
-    .card::after  { right: 18px; }
-
     .pixel-row {
       display: flex;
       gap: 14px;
@@ -68,6 +57,7 @@
       margin-bottom: 18px;
       flex-wrap: wrap;
     }
+
     .pixel-box {
       width: 90px;
       height: 90px;
@@ -84,6 +74,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .pixel-box::before {
       content: "🎀";
       position: absolute;
@@ -91,10 +82,12 @@
       right: -4px;
       font-size: 22px;
     }
+
     .pixel-icon {
       font-size: 34px;
       line-height: 1;
     }
+
     .pixel-label {
       margin-top: 4px;
       font-size: 11px;
@@ -109,44 +102,19 @@
       text-transform: lowercase;
       letter-spacing: 0.12em;
     }
+
     .sub {
       margin: 4px 0 0;
       font-size: 15px;
       color: #555;
     }
+
     .tiny {
       font-size: 11px;
       color: #999;
       margin-top: 14px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-    }
-
-    .hello-kitty-tag {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #ff5da8;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-    }
-
-    .top-kitty {
-      position: absolute;
-      top: -26px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff0fa;
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 18px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .top-kitty span {
-      font-size: 20px;
     }
   </style>
 </head>
@@ -159,13 +127,8 @@
   </div>
 
   <div class="card">
-    <div class="top-kitty">
-      <span>😺</span>
-      <span>hello kitty mode</span>
-      <span>🎀</span>
-    </div>
 
-    <!-- first row: dahlias, cat ft. bubby, hello kitty -->
+    <!-- first row -->
     <div class="pixel-row" style="margin-top: 18px;">
       <div>
         <div class="pixel-box">
@@ -185,31 +148,23 @@
         <div class="pixel-box">
           <span class="pixel-icon">😺</span>
         </div>
-        <div class="pixel-label">hello kitty energy</div>
+        <div class="pixel-label">hello kitty vibe</div>
       </div>
     </div>
 
-    <!-- second row: her & you -->
+    <!-- hugging icons -->
     <div class="pixel-row">
       <div>
         <div class="pixel-box">
-          <span class="pixel-icon">🧕🏽</span>
+          <span class="pixel-icon">🤗🏽</span>
         </div>
-        <div class="pixel-label">her</div>
-      </div>
-
-      <div>
-        <div class="pixel-box">
-          <span class="pixel-icon">🙎🏽‍♂️</span>
-        </div>
-        <div class="pixel-label">me</div>
+        <div class="pixel-label">us hugging</div>
       </div>
     </div>
 
     <h1>i love you, dallia</h1>
     <p class="sub">in every universe, every timeline, every little pixel of my heart.</p>
     <p class="tiny">you are so loved</p>
-    <p class="hello-kitty-tag">hello kitty flowers, bubby, and us</p>
   </div>
 </body>
 </html>
