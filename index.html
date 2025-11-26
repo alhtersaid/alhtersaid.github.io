@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I love you, Dallia</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --pink: #ffb7d8;
+      --rose: #ff7fb3;
+      --lilac: #f1e8ff;
+      --ink: #352234;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,255,255,0.9) 0, transparent 45%),
+        radial-gradient(circle at 88% 14%, rgba(255,255,255,0.9) 0, transparent 45%),
+        linear-gradient(135deg, #ffe3f2 0%, #ffd3ee 40%, #f7d0ff 70%, #ffe9ff 100%);
+      padding: 28px;
+    }
+
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-auto-rows: 80px;
+      opacity: 0.15;
+      font-size: 22px;
+      text-align: center;
+    }
+    .floating-hearts span {
+      filter: drop-shadow(0 0 2px rgba(255,255,255,0.9));
+    }
+
+    .card {
+      width: min(920px, 100%);
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 28px;
+      padding: clamp(24px, 4vw, 44px);
+      box-shadow:
+        0 0 0 5px #ffe3f6,
+        0 0 0 12px #ffc4e7,
+        0 24px 48px rgba(53, 34, 52, 0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(34px, 5vw, 46px);
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-transform: lowercase;
+    }
+
+    .message {
+      margin: 0 auto 10px;
+      max-width: 620px;
+      font-size: clamp(17px, 2.6vw, 20px);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .date {
+      margin: 4px 0 24px;
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8b6b8b;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    figure {
+      margin: 0;
+      background: var(--lilac);
+      border-radius: 18px;
+      padding: 12px;
+      border: 3px solid var(--pink);
+      box-shadow: 0 12px 28px rgba(53, 34, 52, 0.15);
+      position: relative;
+    }
+
+    figure::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 2px dashed #ff9ecf;
+      border-radius: 12px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffe6f3, #dcd7ff);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      transition: opacity 200ms ease;
+      opacity: 1;
+    }
+
+    figcaption {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .swap-button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid var(--rose);
+      background: linear-gradient(135deg, #ffd7ef, #ffc4e7);
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+      box-shadow: 0 8px 18px rgba(53, 34, 52, 0.16);
+    }
+
+    .swap-button:focus-visible {
+      outline: 3px solid #7b5a8a;
+      outline-offset: 4px;
+    }
+
+    .swap-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 12px 24px rgba(53, 34, 52, 0.18);
+    }
+
+    .swap-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(53, 34, 52, 0.16);
+    }
+
+    .note {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #7a627a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 540px) {
+      .card { padding: 22px 16px 26px; }
+      figure { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" aria-hidden="true">
+    <span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span>
+    <span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span>
+    <span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span>
+  </div>
+
+  <main class="card">
+    <h1>i love you, dallia</h1>
+    <p class="message">
+      Every click, every heartbeat, every pixel on this page is here to say one thing: I love you. I love our laughter, our pictures, and the little family that includes sweet Bubby.
+    </p>
+    <p class="date">November 16, 2023 - forever</p>
+
+    <section class="gallery" aria-label="Our favorite photos">
+      <figure>
+        <div class="photo">
+          <!-- throne picture of you two -->
+          <img
+            id="photo-us"
+            src="IMG_7159.png"
+            alt="Our favorite photo together"
+            loading="lazy"
+          >
+          <!-- SVG kept as a fallback but hidden -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" role="img" aria-labelledby="us-title us-desc" style="display:none">
+            <title id="us-title">Illustration placeholder for your favorite photo together</title>
+            <desc id="us-desc">A pastel illustration of a couple surrounded by floating hearts.</desc>
+          </svg>
+        </div>
+        <figcaption>us, together</figcaption>
+        <button class="swap-button" type="button" data-target="us">Add our photo</button>
+      </figure>
+
+      <figure>
+        <div class="photo">
+          <!-- birthday with Bubby -->
+          <img
+            id="photo-bubby"
+            src="IMG_7160.jpeg"
+            alt="Dallia with Bubby"
+            loading="lazy"
+          >
+          <!-- SVG kept as a fallback but hidden -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" role="img" aria-labelledby="bubby-title bubby-desc" style="display:none">
+            <title id="bubby-title">Illustration placeholder for Dallia with Bubby</title>
+            <desc id="bubby-desc">A soft illustration of Dallia hugging her cat Bubby.</desc>
+          </svg>
+        </div>
+        <figcaption>dallia and bubby</figcaption>
+        <button class="swap-button" type="button" data-target="bubby">Add Dallia and Bubby</button>
+      </figure>
+    </section>
+
+    <p class="note">
+      Everything lives in this single page, and whenever you feel like it you can swap these for new memories.
+    </p>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.swap-button');
+
+    function handleSwap(targetId) {
+      const imgEl = document.getElementById(`photo-${targetId}`);
+      if (!imgEl) return;
+
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          imgEl.src = reader.result;
+          imgEl.hidden = false;
+          requestAnimationFrame(() => {
+            imgEl.style.opacity = '1';
+          });
+          const svg = imgEl.parentElement.querySelector('svg');
+          if (svg) {
+            svg.style.opacity = '0';
+            svg.style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      input.click();
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => handleSwap(btn.dataset.target));
+    });
+  </script>
+</body>
+</html>
