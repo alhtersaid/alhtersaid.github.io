@@ -1,0 +1,368 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index ffed5e0f7110a02966154d836768b385d508c2e4..777666214764eadaab1e354b6f9fd6a6079a91bf 100644
+--- a/index.html
++++ b/index.html
+@@ -1,170 +1,236 @@
+ <!DOCTYPE html>
+-<html>
++<html lang="en">
+ <head>
+   <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>I love you, Dallia</title>
+   <style>
+     * { box-sizing: border-box; }
++    :root {
++      --pink: #ffb7d8;
++      --rose: #ff7fb3;
++      --lilac: #f1e8ff;
++      --ink: #352234;
++    }
+     body {
+       margin: 0;
+-      padding: 0;
+-      font-family: system-ui, sans-serif;
+-      display: flex;
+-      align-items: center;
+-      justify-content: center;
+       min-height: 100vh;
++      display: grid;
++      place-items: center;
++      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
++      color: var(--ink);
+       background:
+-        radial-gradient(circle at 10% 0, rgba(255,255,255,0.9) 0, transparent 45%),
+-        radial-gradient(circle at 90% 0, rgba(255,255,255,0.9) 0, transparent 45%),
+-        radial-gradient(circle at 0 100%, #ffd6ec 0, #ffb3da 40%, #ff9ad0 70%, #ff7fc6 100%);
++        radial-gradient(circle at 12% 10%, rgba(255,255,255,0.9) 0, transparent 45%),
++        radial-gradient(circle at 88% 14%, rgba(255,255,255,0.9) 0, transparent 45%),
++        linear-gradient(135deg, #ffe3f2 0%, #ffd3ee 40%, #f7d0ff 70%, #ffe9ff 100%);
++      padding: 28px;
+     }
+ 
+-    .hello-kitty-bg {
++    .floating-hearts {
+       position: fixed;
+       inset: 0;
+       pointer-events: none;
+-      opacity: 0.15;
+       display: grid;
+-      grid-template-columns: repeat(6, 1fr);
+-      grid-auto-rows: 90px;
+-      justify-items: center;
+-      align-items: center;
+-      font-size: 26px;
+-    }
+-
+-    .hello-kitty-bg span {
+-      filter: drop-shadow(0 0 2px rgba(255,255,255,0.8));
++      grid-template-columns: repeat(8, 1fr);
++      grid-auto-rows: 80px;
++      opacity: 0.15;
++      font-size: 22px;
++      text-align: center;
+     }
++    .floating-hearts span { filter: drop-shadow(0 0 2px rgba(255,255,255,0.9)); }
+ 
+     .card {
++      width: min(920px, 100%);
++      background: rgba(255, 255, 255, 0.94);
++      border-radius: 28px;
++      padding: clamp(24px, 4vw, 44px);
++      box-shadow:
++        0 0 0 5px #ffe3f6,
++        0 0 0 12px #ffc4e7,
++        0 24px 48px rgba(53, 34, 52, 0.18);
+       position: relative;
++      overflow: hidden;
++    }
++
++    h1 {
++      margin: 0 0 10px;
++      font-size: clamp(34px, 5vw, 46px);
++      letter-spacing: 0.04em;
+       text-align: center;
+-      padding: 40px 30px 34px;
+-      border-radius: 22px;
+-      background: #fffafc;
+-      box-shadow:
+-        0 0 0 4px #ffc4e7,
+-        0 0 0 9px #ff9bd6,
+-        0 22px 46px rgba(0,0,0,0.22);
+-      max-width: 480px;
+-      z-index: 1;
+-    }
+-
+-    .pixel-row {
+-      display: flex;
+-      gap: 14px;
+-      justify-content: center;
+-      margin-bottom: 18px;
+-      flex-wrap: wrap;
+-    }
+-
+-    .pixel-box {
+-      width: 90px;
+-      height: 90px;
+-      background: #ffeef9;
+-      border-radius: 10px;
+-      box-shadow:
+-        0 0 0 3px #ff9ed3,
+-        0 0 0 6px #ff7ac3;
+-      display: flex;
+-      align-items: center;
+-      justify-content: center;
+-      padding: 4px;
+-      image-rendering: pixelated;
++    }
++
++    .message {
++      margin: 0 auto 26px;
++      max-width: 620px;
++      font-size: clamp(17px, 2.6vw, 20px);
++      line-height: 1.6;
++      text-align: center;
++    }
++
++    .gallery {
++      display: grid;
++      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
++      gap: 18px;
++    }
++
++    figure {
++      margin: 0;
++      background: var(--lilac);
++      border-radius: 18px;
++      padding: 12px;
++      border: 3px solid var(--pink);
++      box-shadow: 0 12px 28px rgba(53, 34, 52, 0.15);
+       position: relative;
++    }
++
++    figure::before {
++      content: "";
++      position: absolute;
++      inset: 8px;
++      border: 2px dashed #ff9ecf;
++      border-radius: 12px;
++      pointer-events: none;
++      opacity: 0.6;
++    }
++
++    .photo {
++      width: 100%;
++      aspect-ratio: 4 / 5;
++      border-radius: 12px;
+       overflow: hidden;
++      background: linear-gradient(135deg, #ffe6f3, #dcd7ff);
++      display: grid;
++      place-items: center;
++      position: relative;
+     }
+ 
+-    .pixel-box::before {
+-      content: "🎀";
++    .photo img {
++      width: 100%;
++      height: 100%;
++      object-fit: cover;
++      display: block;
+       position: absolute;
+-      top: -10px;
+-      right: -4px;
+-      font-size: 22px;
++      inset: 0;
++      border-radius: 12px;
++      opacity: 0;
++      transition: opacity 200ms ease;
+     }
+ 
+-    .pixel-icon {
+-      font-size: 34px;
+-      line-height: 1;
++    figcaption {
++      margin-top: 12px;
++      text-align: center;
++      font-weight: 600;
++      letter-spacing: 0.04em;
+     }
+ 
+-    .pixel-label {
+-      margin-top: 4px;
+-      font-size: 11px;
+-      text-transform: lowercase;
+-      letter-spacing: 0.06em;
+-      color: #c04f92;
++    .note {
++      margin-top: 22px;
++      text-align: center;
++      font-size: 14px;
++      color: #7a627a;
++      letter-spacing: 0.08em;
++      text-transform: uppercase;
+     }
+ 
+-    h1 {
+-      margin: 6px 0 4px;
+-      font-size: 28px;
+-      text-transform: lowercase;
+-      letter-spacing: 0.12em;
++    .note strong {
++      color: #4b314b;
++      letter-spacing: 0.04em;
++      text-transform: none;
+     }
+ 
+-    .sub {
+-      margin: 4px 0 0;
++    .steps {
++      margin: 10px auto 0;
++      max-width: 640px;
++      padding: 0;
++      list-style: none;
+       font-size: 15px;
+-      color: #555;
++      color: #4f3850;
++      text-align: center;
+     }
+ 
+-    .tiny {
+-      font-size: 11px;
+-      color: #999;
+-      margin-top: 14px;
+-      letter-spacing: 0.16em;
+-      text-transform: uppercase;
++    .steps li + li { margin-top: 6px; }
++
++    code {
++      background: #f6eaff;
++      padding: 2px 6px;
++      border-radius: 8px;
++      font-size: 13px;
++      border: 1px solid #ecccf3;
++    }
++
++    @media (max-width: 540px) {
++      .card { padding: 22px 16px 26px; }
++      figure { padding: 10px; }
+     }
+   </style>
+ </head>
+ <body>
+-  <div class="hello-kitty-bg">
+-    <span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span>
+-    <span>🎀</span><span>😺</span><span>♡</span><span>🎀</span><span>😺</span><span>♡</span>
+-    <span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span>
+-    <span>😺</span><span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span>
++  <div class="floating-hearts" aria-hidden="true">
++    <span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span>
++    <span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span>
++    <span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span>
+   </div>
+ 
+-  <div class="card">
+-
+-    <!-- first row -->
+-    <div class="pixel-row" style="margin-top: 18px;">
+-      <div>
+-        <div class="pixel-box">
+-          <span class="pixel-icon">🌸</span>
+-        </div>
+-        <div class="pixel-label">dahlias for my pretty girl</div>
+-      </div>
+-
+-      <div>
+-        <div class="pixel-box">
+-          <span class="pixel-icon">🐱</span>
+-        </div>
+-        <div class="pixel-label">(ft. bubby)</div>
+-      </div>
+-
+-      <div>
+-        <div class="pixel-box">
+-          <span class="pixel-icon">⋆. ̊🦦⋆</span>
++  <main class="card">
++    <h1>i love you, dallia</h1>
++    <p class="message">Every click, every heartbeat, every pixel on this page is here to say one thing: I love you. I love our laughter, our pictures, and the little family that includes sweet Bubby.</p>
++
++    <section class="gallery" aria-label="Our favorite photos">
++      <figure>
++        <div class="photo">
++          <img
++            src="photos/us-together.jpg"
++            data-placeholder="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20640%20800%27%3E%0A%3Cdefs%3E%0A%20%20%3ClinearGradient%20id%3D%27bg%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23ffe9f6%27/%3E%0A%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23e6e3ff%27/%3E%0A%20%20%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%27640%27%20height%3D%27800%27%20rx%3D%2736%27%20fill%3D%27url%28%23bg%29%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20font-family%3D%27Inter%2C%20Segoe%20UI%2C%20sans-serif%27%20font-size%3D%2732%27%20fill%3D%27%23352234%27%20font-weight%3D%27700%27%3E%0AUs%2C%20together%20placeholder%0A%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2756%25%27%20text-anchor%3D%27middle%27%20font-family%3D%27Inter%2C%20Segoe%20UI%2C%20sans-serif%27%20font-size%3D%2718%27%20fill%3D%27%2350334f%27%3E%0ADrop%20your%20photo%20into%20photos/us-together.jpg%0A%3C/text%3E%0A%3C/svg%3E"
++            alt="Our favorite photo together"
++            loading="lazy"
++          >
+         </div>
+-        <div class="pixel-label">anddd otters</div>
+-      </div>
+-    </div>
+-
+-    <!-- hugging icons -->
+-    <div class="pixel-row">
+-      <div>
+-        <div class="pixel-box">
+-          <span class="pixel-icon"> 👫</span>
++        <figcaption>us, together</figcaption>
++      </figure>
++
++      <figure>
++        <div class="photo">
++          <img
++            src="photos/dallia-bubby.jpg"
++            data-placeholder="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20640%20800%27%3E%0A%3Cdefs%3E%0A%20%20%3ClinearGradient%20id%3D%27bg%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23ffeef6%27/%3E%0A%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23e4f0ff%27/%3E%0A%20%20%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%27640%27%20height%3D%27800%27%20rx%3D%2736%27%20fill%3D%27url%28%23bg%29%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2750%25%27%20text-anchor%3D%27middle%27%20font-family%3D%27Inter%2C%20Segoe%20UI%2C%20sans-serif%27%20font-size%3D%2732%27%20fill%3D%27%23352234%27%20font-weight%3D%27700%27%3E%0ADallia%20%26%20Bubby%20placeholder%0A%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2756%25%27%20text-anchor%3D%27middle%27%20font-family%3D%27Inter%2C%20Segoe%20UI%2C%20sans-serif%27%20font-size%3D%2718%27%20fill%3D%27%2350334f%27%3E%0ADrop%20your%20photo%20into%20photos/dallia-bubby.jpg%0A%3C/text%3E%0A%3C/svg%3E"
++            alt="Dallia with Bubby"
++            loading="lazy"
++          >
+         </div>
+-        <div class="pixel-label">us together :) </div>
+-      </div>
+-    </div>
+-
+-    <h1>i love you, dallia</h1>
+-    <p class="sub">in every universe, every timeline, every little pixel of my heart.</p>
+-    <p class="tiny">you are so loved - your teddy bear</p>
+-  </div>
++        <figcaption>dallia &amp; bubby</figcaption>
++      </figure>
++    </section>
++
++    <p class="note">
++      Your photos load automatically from this page.
++      <strong>Just drop the real pictures into the project and reload.</strong>
++    </p>
++    <ol class="steps">
++      <li>Put your files in a <code>photos/</code> folder next to this <code>index.html</code>.</li>
++      <li>Name them <code>us-together.jpg</code> and <code>dallia-bubby.jpg</code> (JPG, PNG, or WebP all work).</li>
++      <li>Open the page—if the files exist, they show instantly; if not, the pastel placeholders appear.</li>
++    </ol>
++  </main>
++
++  <script>
++    document.querySelectorAll('.photo img').forEach((img) => {
++      const placeholder = img.dataset.placeholder;
++
++      const showPlaceholder = () => {
++        if (placeholder && img.src !== placeholder) {
++          img.src = placeholder;
++        }
++      };
++
++      img.addEventListener('error', showPlaceholder, { once: true });
++      img.addEventListener('load', () => {
++        img.style.opacity = '1';
++      });
++
++      if (img.complete && img.naturalWidth === 0) {
++        showPlaceholder();
++      }
++    });
++  </script>
+ </body>
+ </html>
+ 
+EOF
+)
