@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I love you, Dallia</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --pink: #ffb7d8;
+      --rose: #ff7fb3;
+      --lilac: #f1e8ff;
+      --ink: #352234;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,255,255,0.9) 0, transparent 45%),
+        radial-gradient(circle at 88% 14%, rgba(255,255,255,0.9) 0, transparent 45%),
+        linear-gradient(135deg, #ffe3f2 0%, #ffd3ee 40%, #f7d0ff 70%, #ffe9ff 100%);
+      padding: 28px;
+    }
+
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-auto-rows: 80px;
+      opacity: 0.15;
+      font-size: 22px;
+      text-align: center;
+    }
+    .floating-hearts span { filter: drop-shadow(0 0 2px rgba(255,255,255,0.9)); }
+
+    .card {
+      width: min(920px, 100%);
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 28px;
+      padding: clamp(24px, 4vw, 44px);
+      box-shadow:
+        0 0 0 5px #ffe3f6,
+        0 0 0 12px #ffc4e7,
+        0 24px 48px rgba(53, 34, 52, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 5vw, 46px);
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .message {
+      margin: 0 auto 26px;
+      max-width: 620px;
+      font-size: clamp(17px, 2.6vw, 20px);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    figure {
+      margin: 0;
+      background: var(--lilac);
+      border-radius: 18px;
+      padding: 12px;
+      border: 3px solid var(--pink);
+      box-shadow: 0 12px 28px rgba(53, 34, 52, 0.15);
+      position: relative;
+    }
+
+    .swap-button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid var(--rose);
+      background: linear-gradient(135deg, #ffd7ef, #ffc4e7);
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+      box-shadow: 0 8px 18px rgba(53, 34, 52, 0.16);
+    }
+
+    .swap-button:focus-visible {
+      outline: 3px solid #7b5a8a;
+      outline-offset: 4px;
+    }
+
+    .swap-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 12px 24px rgba(53, 34, 52, 0.18);
+    }
+
+    .swap-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(53, 34, 52, 0.16);
+    }
+
+    figure::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 2px dashed #ff9ecf;
+      border-radius: 12px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffe6f3, #dcd7ff);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+
+    figcaption {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .note {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #7a627a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 540px) {
+      .card { padding: 22px 16px 26px; }
+      figure { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" aria-hidden="true">
+    <span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span><span>😺</span><span>♡</span><span>🎀</span>
+    <span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span>
+    <span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span><span>♡</span><span>😺</span><span>🎀</span>
+  </div>
+
+  <main class="card">
+    <h1>i love you, dallia</h1>
+    <p class="message">Every click, every heartbeat, every pixel on this page is here to say one thing: I love you. I love our laughter, our pictures, and the little family that includes sweet Bubby.</p>
+
+    <section class="gallery" aria-label="Our favorite photos">
+      <figure>
+        <div class="photo">
+          <img id="photo-us" alt="Our favorite photo together" loading="lazy" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" role="img" aria-labelledby="us-title us-desc">
+            <title id="us-title">Illustration placeholder for your favorite photo together</title>
+            <desc id="us-desc">A pastel illustration of a couple surrounded by floating hearts, waiting to be swapped with your real picture.</desc>
+            <defs>
+              <linearGradient id="us-bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffe9f6" />
+                <stop offset="100%" stop-color="#e6e3ff" />
+              </linearGradient>
+              <linearGradient id="us-heart" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ff9bcf" />
+                <stop offset="100%" stop-color="#ff6fb6" />
+              </linearGradient>
+            </defs>
+            <rect width="640" height="800" rx="36" fill="url(#us-bg)" />
+            <g opacity="0.2" fill="#ff9bcf">
+              <circle cx="120" cy="120" r="70" />
+              <circle cx="540" cy="170" r="90" />
+              <circle cx="540" cy="620" r="80" />
+              <circle cx="120" cy="660" r="100" />
+            </g>
+            <g stroke="#f38bc8" stroke-width="6" fill="none" opacity="0.4">
+              <path d="M180 200c40-80 140-80 180 0 40-80 140-80 180 0 40 80-50 190-180 280C230 390 140 280 180 200Z" />
+            </g>
+            <g transform="translate(140 260)">
+              <rect x="40" y="120" width="130" height="200" rx="28" fill="#ffc6dd" />
+              <rect x="230" y="140" width="140" height="190" rx="28" fill="#cdd7ff" />
+              <circle cx="105" cy="150" r="50" fill="#ff96c8" />
+              <circle cx="300" cy="170" r="50" fill="#b8c5ff" />
+              <path d="M80 190c30 20 50 20 80 0" fill="#ffb6d9" />
+              <path d="M270 210c28 16 52 16 80 0" fill="#d2d9ff" />
+              <path d="M60 320c55-26 105-26 160 0" fill="#ff7fb3" opacity="0.6" />
+              <path d="M250 330c50-30 95-30 140 0" fill="#9fb2ff" opacity="0.6" />
+              <circle cx="95" cy="155" r="8" fill="#512645" />
+              <circle cx="115" cy="155" r="8" fill="#512645" />
+              <path d="M96 172c8 6 12 6 20 0" stroke="#512645" stroke-width="4" fill="none" stroke-linecap="round" />
+              <circle cx="290" cy="175" r="8" fill="#2e3f6c" />
+              <circle cx="310" cy="175" r="8" fill="#2e3f6c" />
+              <path d="M292 192c8 6 12 6 20 0" stroke="#2e3f6c" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M120 105c10-18 34-24 50-12" stroke="#512645" stroke-width="6" stroke-linecap="round" />
+              <path d="M280 125c14-20 48-18 60 6" stroke="#2e3f6c" stroke-width="6" stroke-linecap="round" />
+            </g>
+            <g transform="translate(120 540)">
+              <g transform="translate(60 0)">
+                <path d="M40 40c22-26 60-26 82 0 22 26-4 62-41 92-37-30-63-66-41-92Z" fill="url(#us-heart)" />
+              </g>
+              <g transform="translate(240 10)">
+                <path d="M40 40c22-26 60-26 82 0 22 26-4 62-41 92-37-30-63-66-41-92Z" fill="url(#us-heart)" />
+              </g>
+            </g>
+            <text x="50%" y="86%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="24" fill="#6b4b6b" font-weight="700">
+              Swap this with your favorite photo of us
+            </text>
+            <text x="50%" y="91%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" fill="#7d5c7d">
+              Replace this illustration with our real picture when you're ready
+            </text>
+          </svg>
+        </div>
+        <figcaption>us, together</figcaption>
+        <button class="swap-button" type="button" data-target="us">Add our photo</button>
+      </figure>
+
+      <figure>
+        <div class="photo">
+          <img id="photo-bubby" alt="Dallia with Bubby" loading="lazy" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" role="img" aria-labelledby="bubby-title bubby-desc">
+            <title id="bubby-title">Illustration placeholder for Dallia with Bubby</title>
+            <desc id="bubby-desc">A soft illustration of Dallia hugging her cat Bubby, with hearts and a gentle pastel background.</desc>
+            <defs>
+              <linearGradient id="bubby-bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffeef6" />
+                <stop offset="100%" stop-color="#e4f0ff" />
+              </linearGradient>
+              <linearGradient id="bubby-fur" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffe0b5" />
+                <stop offset="100%" stop-color="#ffc48c" />
+              </linearGradient>
+              <linearGradient id="bubby-heart" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ff9bcf" />
+                <stop offset="100%" stop-color="#ff6fb6" />
+              </linearGradient>
+            </defs>
+            <rect width="640" height="800" rx="36" fill="url(#bubby-bg)" />
+            <g opacity="0.16" fill="#ff9bcf">
+              <circle cx="100" cy="150" r="90" />
+              <circle cx="500" cy="130" r="80" />
+              <circle cx="520" cy="650" r="110" />
+              <circle cx="120" cy="620" r="90" />
+            </g>
+            <g transform="translate(140 230)">
+              <rect x="80" y="170" width="240" height="220" rx="60" fill="#dbe4ff" />
+              <rect x="130" y="120" width="140" height="170" rx="70" fill="#ffcfe5" />
+              <circle cx="200" cy="160" r="60" fill="#ff9bcf" />
+              <path d="M140 190c40 30 80 30 120 0" fill="#ffb8dd" />
+              <circle cx="178" cy="165" r="8" fill="#4a2d45" />
+              <circle cx="222" cy="165" r="8" fill="#4a2d45" />
+              <path d="M184 182c12 8 18 8 28 0" stroke="#4a2d45" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M150 120c10-24 46-36 70-16" stroke="#4a2d45" stroke-width="6" stroke-linecap="round" />
+              <rect x="190" y="210" width="120" height="90" rx="28" fill="url(#bubby-fur)" />
+              <circle cx="215" cy="240" r="32" fill="url(#bubby-fur)" />
+              <circle cx="290" cy="240" r="32" fill="url(#bubby-fur)" />
+              <path d="M230 248c26 22 44 22 70 0" fill="#f2b270" />
+              <circle cx="210" cy="235" r="6" fill="#3d2a29" />
+              <circle cx="300" cy="235" r="6" fill="#3d2a29" />
+              <path d="M216 248c10 6 16 6 24 0" stroke="#3d2a29" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M170 260c-10 24 6 52 30 68 40 26 104 26 144 0 24-16 40-44 30-68" fill="#ffe8c9" opacity="0.9" />
+              <path d="M150 240c-20 24-10 56 18 74" stroke="#ff9bcf" stroke-width="8" stroke-linecap="round" opacity="0.7" />
+              <path d="M350 238c22 22 12 60-14 80" stroke="#ff9bcf" stroke-width="8" stroke-linecap="round" opacity="0.7" />
+            </g>
+            <g transform="translate(100 560)">
+              <path d="M40 40c22-26 60-26 82 0 22 26-4 62-41 92-37-30-63-66-41-92Z" fill="url(#bubby-heart)" />
+              <g transform="translate(200 -10)">
+                <path d="M40 40c22-26 60-26 82 0 22 26-4 62-41 92-37-30-63-66-41-92Z" fill="url(#bubby-heart)" />
+              </g>
+              <g transform="translate(360 0)">
+                <path d="M40 40c22-26 60-26 82 0 22 26-4 62-41 92-37-30-63-66-41-92Z" fill="url(#bubby-heart)" />
+              </g>
+            </g>
+            <text x="50%" y="86%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="24" fill="#6b4b6b" font-weight="700">
+              Swap this with Dallia and Bubby
+            </text>
+            <text x="50%" y="91%" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" fill="#7d5c7d">
+              Replace this illustration with the real photo when you're ready
+            </text>
+          </svg>
+        </div>
+        <figcaption>dallia & bubby</figcaption>
+        <button class="swap-button" type="button" data-target="bubby">Add Dallia & Bubby</button>
+      </figure>
+    </section>
+
+    <p class="note">Everything lives in this single page—click a button, pick a file, and your real photos appear instantly.</p>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.swap-button');
+
+    function handleSwap(targetId) {
+      const imgEl = document.getElementById(`photo-${targetId}`);
+      if (!imgEl) return;
+
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          imgEl.src = reader.result;
+          imgEl.hidden = false;
+          requestAnimationFrame(() => {
+            imgEl.style.opacity = '1';
+          });
+          const svg = imgEl.parentElement.querySelector('svg');
+          if (svg) {
+            svg.style.opacity = '0';
+            svg.style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      input.click();
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => handleSwap(btn.dataset.target));
+    });
+  </script>
+</body>
+</html>
